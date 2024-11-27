@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Book = require('../models/books');
-const { Sequelize } = require('sequelize');
+const { Sequelize, where } = require('sequelize');
 
 /* GET books listing. */
 router.get('/', function(req, res, next) {
@@ -43,6 +43,19 @@ router.get('/', function(req, res, next) {
        }).then(function() { res.send('ok')})
       
       })
+
+    router.put('/:id', function(req, res, next) {
+        Book.update({
+            author: req.body.author,
+            year: Number(req.body.year),
+            title: req.body.title
+        },{
+            where: {
+                id: req.params.id
+            }
+        }).then(function() { res.send('ok')})
+    }
+)
 
 
   module.exports = router;
