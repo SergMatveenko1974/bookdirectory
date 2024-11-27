@@ -24,21 +24,19 @@ router.get('/', function(req, res, next) {
   });
 
 
-//   router.get('/:id', function(req, res) {
-//     Book.findByPk(Number(req.params.id)).then((book) => {
-//       res.send(book);
-//     });
-//   })
+   router.get('/:id', function(req, res) {
+     Book.findByPk(Number(req.params.id)).then((book) => {
+       res.send(book);
+     });
+   })
 
   router.post('/', function(req, res) {
     Book.create({ author:  req.body.author, year: req.body.year, title: req.body.title }).then(function(book) { res.send(book); })
     });
   
-    router.delete('/', function(req, res) {
-        //Book.destroy({where: { id: Number(req .params.id)} }).then(function() { res.send('ok')})
-      
-        Book.destroy({    where:         {[Sequelize.Op.or]: [
-          { year: 2020 },
+    router.delete('/', function(req, res) {     
+      Book.destroy({    where:         {[Sequelize.Op.or]: [
+          { year: Number(req.query.year) },
           { author: req.query.author }
         ]}
        
