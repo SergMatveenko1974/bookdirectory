@@ -36,12 +36,17 @@ router.get('/', function(req, res, next) {
   
     router.delete('/', function(req, res) {     
       Book.destroy({    where:         {[Sequelize.Op.or]: [
-          { year: Number(req.query.year) },
-          { author: req.query.author }
+          { id: req.query.id }
         ]}
        
-       }).then(function() { res.send('ok')})
-      
+       }).then(function(count) {        
+        if (count > 0) {
+            res.send('ok')
+        }   
+        else {
+            res.send('no book found')
+        }
+    }) 
       })
 
     router.put('/:id', function(req, res, next) {
