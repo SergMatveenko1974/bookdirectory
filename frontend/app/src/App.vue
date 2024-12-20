@@ -16,6 +16,9 @@ export default {
         }
       },
       async deleteBook(bookId) {
+        if(!confirm('Are you sure to wont to delete?')){
+          return;
+        }
         try {
           const response = await fetch(`http://localhost:3000/books/${bookId}`, {
           method: 'DELETE',
