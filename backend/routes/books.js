@@ -34,9 +34,9 @@ router.get('/', function(req, res, next) {
     Book.create({ author:  req.body.author, year: req.body.year, title: req.body.title }).then(function(book) { res.send(book); })
     });
   
-    router.delete('/', function(req, res) {     
+    router.delete('/:bookId', function(req, res) {     
       Book.destroy({    where:         {[Sequelize.Op.or]: [
-          { id: req.query.id }
+          { id: req.params.bookId }
         ]}
        
        }).then(function(count) {        

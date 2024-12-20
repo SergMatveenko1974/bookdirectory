@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors')
+
 
 const { Sequelize, DataTypes } = require('sequelize');
 global.sequelize = new Sequelize('MyApp', 'postgres', 'Serg1974', {
@@ -13,6 +15,7 @@ global.sequelize = new Sequelize('MyApp', 'postgres', 'Serg1974', {
 var booksRouter = require('./routes/books.js');
 
 var app = express();
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
